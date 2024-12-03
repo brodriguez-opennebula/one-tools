@@ -14,9 +14,9 @@ vmpool.elements.each("VM") do |vm|
 
     puts "VM: " + vm.elements["ID"].text
     puts "NAME: " + vm.elements["NAME"].text
-    if hostname = vm.elements["HISTORY_RECORDS/HISTORY/HOSTNAME"].text
-        puts "HOSTNAME: " + hostname
-    end
+    hostname = vm.elements["HISTORY_RECORDS/HISTORY/HOSTNAME"].text rescue nil
+    puts "HOSTNAME: " + hostname if hostname
+
     vm.elements.each("TEMPLATE/GRAPHICS") do |vnc|
         if vnc_port = vnc.elements["PORT"]
             puts "VNC PORT: " + vnc_port.text
@@ -24,7 +24,7 @@ vmpool.elements.each("VM") do |vm|
     end
     vm.elements.each("TEMPLATE/NIC") do |nic|
         if ip = nic.elements["IP"]
-            puts "IP: " + ip.text 
+            puts "IP: " + ip.text
         end
     end
 end
